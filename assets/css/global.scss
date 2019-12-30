@@ -1,0 +1,39 @@
+
+.score-color-white {
+  color: #FFFFFF;
+}
+
+.score-color-grey {
+  color: #808080;
+}
+
+.score-color-green {
+  color: #00FF00;
+}
+
+.score-color-cyan {
+  color: #03A89E;
+}
+
+.score-color-blue {
+  color: #0000FF;
+}
+
+.score-color-purple {
+  color: #A0A;
+}
+
+.score-color-orange {
+  color: #FF8C00;
+}
+
+.score-color-red {
+  color: #FF0000;
+}
+
+.score-color-lgm {
+  color: red;
+  &::first-letter {
+    color: black !important;
+  }
+}
