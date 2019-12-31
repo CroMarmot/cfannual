@@ -89,6 +89,8 @@ export default {
       padding-bottom: 20px;
       font-size: 10vw;
       width: 100vw;
+      font-weight: bold;
+      text-shadow: 1px 1px black;
     }
   }
 
