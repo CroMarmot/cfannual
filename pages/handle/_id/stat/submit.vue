@@ -1,13 +1,16 @@
 <template>
   <div class="problems">
-    <div>
+    <div v-if="mostSubmit.submitTimes > 0">
       提交
       <a
-      :href="`https://codeforces.com/contest/${mostSubmit.problem.contestId}/problem/${mostSubmit.problem.index}`"
-    >{{
-      `${mostSubmit.problem.contestId}${mostSubmit.problem.index} ${mostSubmit.problem.name}` }}</a>
-      的次数最多,一共提交了
-      {{ mostSubmit.submitTimes }}次,最后{{ mostSubmit.verdict==='OK'?'通过了':'依然没有过' }}测试
+        :href="`https://codeforces.com/contest/${mostSubmit.problem.contestId}/problem/${mostSubmit.problem.index}`"
+      >
+        {{`${mostSubmit.problem.contestId}${mostSubmit.problem.index} ${mostSubmit.problem.name}` }}
+      </a>
+      的次数最多,一共提交了{{ mostSubmit.submitTimes }}次,最后{{ mostSubmit.verdict==='OK'?'通过了':'依然没有过' }}测试
+    </div>
+    <div v-else>
+      您甚至没有提交过题
     </div>
   </div>
 </template>

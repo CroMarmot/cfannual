@@ -4,7 +4,7 @@
       v-if="readyCnt === 100"
       :score="userColor"
       :handle="$route.params.id"
-      :style="{'text-align':'center',padding:'20px','font-size':'10vw'}"
+      class="user-handle"
     />
     <h2
       v-if="readyCnt !== 100"
@@ -76,13 +76,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .handle-main {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .user-handle {
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-size: 10vw;
+      width: 100vw;
+      font-weight: bold;
+      text-shadow: 1px 1px black;
+    }
   }
 
   @media screen and (min-width: 600px) {
