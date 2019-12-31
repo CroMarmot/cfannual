@@ -1,13 +1,13 @@
 <template>
   <div class="problems">
     <div>
-      提交了{{ userStatusResult(year).length }}次,AC了{{ mergedUserStatusResult.filter((item)=>item.verdict ===
-        'OK').length }}题
+      提交了{{ userStatusResult(year).length }}次，AC了{{ mergedUserStatusResult.filter((item)=>item.verdict ===
+      'OK').length }}题
     </div>
     <table>
-      <tr v-for="key in Object.keys(userStatusResult(year).reduce((pre,cur)=>{pre[cur.verdict]=true;return pre},{}))">
+      <tr v-for="key in Object.keys(verdicts).sort((key1,key2)=>verdicts[key2]-verdicts[key1])">
         <td>{{ key }}</td>
-        <td>{{ userStatusResult(year).filter((item)=>item.verdict === key).length }}次</td>
+        <td style="text-align: right">{{ verdicts[key] }} 次</td>
       </tr>
     </table>
   </div>
@@ -28,6 +28,12 @@ export default {
       'userStatusResult',
       'userRatingResult'
     ]),
+    verdicts() {
+      return this.userStatusResult(this.year).reduce((pre, cur) => {
+        pre[cur.verdict] = this.$add(pre[cur.verdict], 1)
+        return pre
+      }, {})
+    },
     rankM() {
       return this.userRatingResult(this.year).reduce((pre, cur) => {
         const _low = cur.rank > pre[0].rank ? cur : pre[0]
