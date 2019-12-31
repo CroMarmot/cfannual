@@ -1,36 +1,51 @@
 <template>
   <div class="problems">
-    <div>
-      在
-      <contest-link :contestId="rankM[0].contestId">
-        {{ rankM[0].contestName }}
-      </contest-link>
-      取得了最低排名,排名在 {{ rankM[0].rank }} 名
-    </div>
-    <div>
-      在
-      <contest-link :contestId="rankM[1].contestId">
-        {{ rankM[1].contestName }}
-      </contest-link>
-      取得了最高排名,排名在 {{ rankM[1].rank }} 名
+    <div
+      v-if="userRatingResultYear.length > 0"
+      class="rank-part"
+    >
+      <div>
+        在
+        <contest-link :contestId="rankM[0].contestId">
+          {{ rankM[0].contestName }}
+        </contest-link>
+        取得了最低排名,排名在 {{ rankM[0].rank }} 名
+      </div>
+      <div>
+        在
+        <contest-link :contestId="rankM[1].contestId">
+          {{ rankM[1].contestName }}
+        </contest-link>
+        取得了最高排名,排名在 {{ rankM[1].rank }} 名
+      </div>
     </div>
 
-    <div v-if="ratingM[0].newRating-ratingM[0].oldRating < 0 ">
-      在
-      <contest-link :contestId="ratingM[0].contestId">
-        {{ ratingM[0].contestName }}
-      </contest-link>
-      掉分最多,掉了 {{ ratingM[0].newRating - ratingM[0].oldRating }} 分
-    </div>
-    <div v-else>
-      您没有掉过分
-    </div>
-    <div>
-      在
-      <contest-link :contestId="ratingM[1].contestId">
-        {{ ratingM[1].contestName }}
-      </contest-link>
-      上分最多,上了 {{ ratingM[1].newRating - ratingM[1].oldRating }} 分
+    <div class="rank-part">
+      <div
+        v-if="ratingM[0].newRating-ratingM[0].oldRating < 0 "
+      >
+        在
+        <contest-link :contestId="ratingM[0].contestId">
+          {{ ratingM[0].contestName }}
+        </contest-link>
+        掉分最多,掉了 {{ ratingM[0].newRating - ratingM[0].oldRating }} 分
+      </div>
+      <div v-else>
+        您没有掉过分
+      </div>
+
+      <div
+        v-if="ratingM[1].newRating - ratingM[1].oldRating > 0 "
+      >
+        在
+        <contest-link :contestId="ratingM[1].contestId">
+          {{ ratingM[1].contestName }}
+        </contest-link>
+        上分最多,上了 {{ ratingM[1].newRating - ratingM[1].oldRating }} 分
+      </div>
+      <div v-else>
+        您没有上过分
+      </div>
     </div>
   </div>
 </template>
@@ -52,8 +67,11 @@ export default {
       'userStatusResult',
       'userRatingResult'
     ]),
+    userRatingResultYear() {
+      return this.userRatingResult(this.year)
+    },
     rankM() {
-      return this.userRatingResult(this.year).reduce((pre, cur) => {
+      return this.userRatingResultYear.reduce((pre, cur) => {
         const _low = cur.rank > pre[0].rank ? cur : pre[0]
         const _high = cur.rank < pre[1].rank ? cur : pre[1]
         return [_low, _high]
@@ -134,8 +152,13 @@ export default {
   }
 }
 </script>
-<style scoped>
+
+<style scoped lang="scss">
   .problems {
+    display: block;
+  }
+
+  .rank-part {
     display: block;
   }
 </style>

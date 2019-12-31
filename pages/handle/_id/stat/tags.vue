@@ -1,22 +1,24 @@
 <template>
   <div class="problems">
     <div v-if="tagsDisplay.submit.key === ''">
-      您没有提交过题目
+      您没有做过任何题型的题目
     </div>
     <div v-else>
-      提交最多的题型是 {{ tagsDisplay.submit.key }} , 共 {{ tagsDisplay.submit.value }} 题
-    </div>
-    <div v-if="tagsDisplay.ac.key === ''">
-      您没有AC过题目
-    </div>
-    <div v-else>
-      提交已经AC最多的题型是 {{ tagsDisplay.ac.key }} , 共 {{ tagsDisplay.ac.value }} 题
-    </div>
-    <div v-if="tagsDisplay.notac.key === ''">
-      您没有提交还未AC的题目
-    </div>
-    <div v-else>
-      提交却还没有AC最多的题型是 {{ tagsDisplay.notac.key }} , 共 {{ tagsDisplay.notac.value }} 题
+      <div>
+        提交最多的题型是 {{ tagsDisplay.submit.key }} , 共 {{ tagsDisplay.submit.value }} 题
+      </div>
+      <div v-if="tagsDisplay.ac.key === ''">
+        您没有AC过题目
+      </div>
+      <div v-else>
+        提交已经AC最多的题型是 {{ tagsDisplay.ac.key }} , 共 {{ tagsDisplay.ac.value }} 题
+      </div>
+      <div v-if="tagsDisplay.notac.key === ''">
+        您没有提交还未AC的题目
+      </div>
+      <div v-else>
+        提交却还没有AC最多的题型是 {{ tagsDisplay.notac.key }} , 共 {{ tagsDisplay.notac.value }} 题
+      </div>
     </div>
   </div>
 </template>
