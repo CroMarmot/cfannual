@@ -129,7 +129,6 @@ export default {
 
   @media screen and (min-width: 600px) {
     .handle-main {
-      width: 800px;
       margin: 0 auto;
     }
   }
