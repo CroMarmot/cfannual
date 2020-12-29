@@ -29,12 +29,6 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 # TODO
 
-题目分数评估
-
-fst多少次?
-
-hack多少?
-
 localstorage+手动强制刷新 减少请求
 
 # 新版统计
