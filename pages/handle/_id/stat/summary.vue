@@ -19,6 +19,10 @@ import RatingChangeP from '~/components/ratingChangeP'
 
 export default {
   components: {RatingChangeP},
+  data() {
+    return {
+    }
+  },
   computed: {
     ...mapState([
       'userRating',
@@ -50,6 +54,9 @@ export default {
         Object.assign({}, userRatingResult[0]),
         Object.assign({}, userRatingResult[0])
       ])
+    },
+    rting() {
+      return this.userRatingResult(this.year)
     },
     ratingChange() {
       const userRatingResult = this.userRatingResult(this.year)
@@ -117,7 +124,6 @@ export default {
     flex-direction: column;
     align-items: center;
     font-weight: bold;
-    line-height: 2em;
   }
 
   .text {

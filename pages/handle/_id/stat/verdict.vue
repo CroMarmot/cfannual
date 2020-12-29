@@ -2,12 +2,14 @@
   <div class="problems">
     <div>
       提交了{{ userStatusResult(year).length }}次，AC了{{ mergedUserStatusResult.filter((item)=>item.verdict ===
-      'OK').length }}题
+        'OK').length }}题
     </div>
     <table>
       <tr v-for="key in Object.keys(verdicts).sort((key1,key2)=>verdicts[key2]-verdicts[key1])">
         <td>{{ key }}</td>
-        <td style="text-align: right">{{ verdicts[key] }} 次</td>
+        <td style="text-align: right">
+          {{ verdicts[key] }} 次
+        </td>
       </tr>
     </table>
   </div>

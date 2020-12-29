@@ -1,7 +1,7 @@
 // import {userStatus, userRating} from './staticjson'
 
 export const state = () => ({
-  year: 2019,
+  year: (new Date()).getFullYear(),
   // userRating,
   // userStatus
   userRating: {
@@ -13,6 +13,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setYear(state, payload) {
+    state.year = Number(payload)
+  },
   setUserRating(state, payload) {
     if (typeof payload.result === 'undefined') {
       payload.result = []
@@ -33,21 +36,23 @@ export const actions = {
     commit('setUserRating', {result: []})
     const data = await this.$axios.$get(`https://codeforces.com/api/user.rating?handle=${handle}`)
     commit('setUserRating', data)
+    return data
   },
   async getUserStatus({commit}, {handle}) {
     commit('setUserStatus', {result: []})
     const data = await this.$axios.$get(`https://codeforces.com/api/user.status?handle=${handle}`)
     commit('setUserStatus', data)
+    return data
   }
 }
 
 export const getters = {
   userStatusResult: state => year => state.userStatus.result.filter(item =>
-    (item.creationTimeSeconds * 1000) > (new Date(`${year}-01-01`)).getTime() &&
-    (item.creationTimeSeconds * 1000) < (new Date(`${year + 1}-01-01`)).getTime()
+    (Number(item.creationTimeSeconds) * 1000) > (new Date(`${Number(year)}-01-01`)).getTime() &&
+    (Number(item.creationTimeSeconds) * 1000) < (new Date(`${Number(year) + 1}-01-01`)).getTime()
   ),
   userRatingResult: state => year => state.userRating.result.filter(item =>
-    (item.ratingUpdateTimeSeconds * 1000) > (new Date(`${year}-01-01`)).getTime() &&
-    (item.ratingUpdateTimeSeconds * 1000) < (new Date(`${year + 1}-01-01`)).getTime()
+    (Number(item.ratingUpdateTimeSeconds) * 1000) > (new Date(`${Number(year)}-01-01`)).getTime() &&
+    (Number(item.ratingUpdateTimeSeconds) * 1000) < (new Date(`${Number(year) + 1}-01-01`)).getTime()
   )
 }

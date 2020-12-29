@@ -78,7 +78,7 @@ export default {
       }, [{rank: 0}, {rank: 10000}])
     },
     ratingM() {
-      const userRatingResult = this.userRatingResult(this.year)
+      const userRatingResult = this.userRatingResultYear
       return userRatingResult.reduce((pre, cur) => {
         const preLowDelta = pre[0].newRating - pre[0].oldRating
         const preHighDelta = pre[1].newRating - pre[1].oldRating
@@ -93,7 +93,7 @@ export default {
       ])
     },
     ratingChange() {
-      const userRatingResult = this.userRatingResult(this.year)
+      const userRatingResult = this.userRatingResultYear
       return userRatingResult.length > 0
         ? userRatingResult[userRatingResult.length - 1].newRating - userRatingResult[0].oldRating
         : 0

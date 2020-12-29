@@ -1,7 +1,6 @@
 <template>
   <p
     :class="[handleColor]"
-    :style="{color: userColor}"
   >
     {{ handle }}
   </p>

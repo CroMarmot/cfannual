@@ -1,5 +1,13 @@
 <template>
   <div class="handle-main">
+    <div class="radio-divs">
+      <div v-for="y in years" class="radio-div">
+        <input :id="`year-${y}`" :value="y" v-model="year" @input="(e)=>setYear(e.target.value)" type="radio">
+        <label :for="`year-${y}`">{{ y }}</label>
+        <br>
+      </div>
+    </div>
+
     <user-handle
       v-if="readyCnt === 100"
       :score="userColor"
@@ -24,22 +32,34 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 import UserHandle from '~/components/userHandle'
 
 export default {
   components: {UserHandle},
   data() {
     return {
-      year: 2019 // todo 可以改成router里的参数
+      curYear: (new Date()).getFullYear(),
+      year: (new Date()).getFullYear()
     }
   },
   computed: {
     ...mapState(['userRating', 'userStatus']),
+    years() {
+      let lowYear = this.curYear
+      this.userRating.result.forEach((item) => {
+        lowYear = Math.min(lowYear, (new Date(item.ratingUpdateTimeSeconds * 1000)).getFullYear())
+      })
+      const result = []
+      for (let i = lowYear; i <= this.curYear; i++) {
+        result.push(i)
+      }
+      return result
+    },
     userRatingResult() {
       return this.userRating.result.filter(item =>
         (item.ratingUpdateTimeSeconds * 1000) > (new Date(`${this.year}-01-01`)).getTime() &&
-        (item.ratingUpdateTimeSeconds * 1000) < (new Date(`${this.year + 1}-01-01`)).getTime()
+          (item.ratingUpdateTimeSeconds * 1000) < (new Date(`${this.year + 1}-01-01`)).getTime()
       )
     },
     userColor() {
@@ -61,10 +81,12 @@ export default {
   },
   mounted() {
     const handle = this.$route.params.id
-    this.getUserRating({handle})
-    this.getUserStatus({handle})
+    Promise.all([this.getUserRating({handle}), this.getUserStatus({handle})]).catch((e) => {
+      alert(e)
+    })
   },
   methods: {
+    ...mapMutations(['setYear']),
     ...mapActions(['getUserRating', 'getUserStatus']),
     gotourl(url) {
       // TODO 相对路径
@@ -83,6 +105,17 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+
+    .radio-divs{
+      padding: 5px;
+      display: inline-flex;
+      flex-wrap: wrap;
+      .radio-div{
+        padding: 5px;
+      }
+    }
+
     .user-handle {
       text-align: center;
       padding-top: 20px;

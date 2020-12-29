@@ -1,5 +1,7 @@
 <template>
-  <p :style="{color: ratingDelta >= 0?'green':'red'}">{{ ratingDelta | ratingFmt }}</p>
+  <p :style="{color: ratingDelta >= 0?'green':'red'}">
+    {{ ratingDelta | ratingFmt }}
+  </p>
 </template>
 
 <script>
