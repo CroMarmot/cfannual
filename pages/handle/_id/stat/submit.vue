@@ -12,6 +12,31 @@
     <div v-else>
       您甚至没有提交过题
     </div>
+    <div v-if="fst.length > 0">
+      <h2>Failed System Test</h2>
+      <h6>*注: 根据官方api返回的testset字段是否为TESTS来判断，所以有些EDU场可能pretest也没过，但是官方也算system test</h6>
+      <div v-for="item in fst">
+        <a :href="`https://codeforces.com/contest/${item.problem.contestId}/standings/friends/true`">
+          <span>{{ item.problem.contestId }}</span>
+          <span>{{ item.problem.index }}</span>
+        </a>
+      </div>
+    </div>
+    <div v-else>
+      <div>您在{{ year }}年没有FST过</div>
+    </div>
+    <div v-if="hacked.length > 0">
+      <h2>Hacked</h2>
+      <div v-for="item in hacked">
+        <a :href="`https://codeforces.com/contest/${item.problem.contestId}/standings/friends/true`">
+          <span>{{ item.problem.contestId }}</span>
+          <span>{{ item.problem.index }}</span>
+        </a>
+      </div>
+    </div>
+    <div v-else>
+      <div>您在{{ year }}年没有因HACK失去AC过</div>
+    </div>
   </div>
 </template>
 
@@ -98,6 +123,32 @@ export default {
         ac: this.tagsMost(this.tags.ac),
         notac: this.tagsMost(this.tags.notac)
       }
+    },
+    fst() {
+      const list = this.userStatusResult(this.year).filter(item => item.relativeTimeSeconds !== 2147483647)
+      const resultList = []
+      const visit = {}
+      list.forEach((item) => {
+        const pid = `${item.problem.contestId}${item.problem.index}`
+        if (!visit[pid]) {
+          visit[pid] = 1
+          resultList.push(item)
+        }
+      })
+      return resultList.filter(item => item.verdict !== 'OK' && item.testset === 'TESTS')
+    },
+    hacked() {
+      const list = this.userStatusResult(this.year).filter(item => item.relativeTimeSeconds !== 2147483647)
+      const resultList = []
+      const visit = {}
+      list.forEach((item) => {
+        const pid = `${item.problem.contestId}${item.problem.index}`
+        if (!visit[pid]) {
+          visit[pid] = 1
+          resultList.push(item)
+        }
+      })
+      return resultList.filter(item => item.verdict !== 'OK' && item.testset === 'CHALLENGES')
     }
   },
   methods: {
