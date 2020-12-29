@@ -35,7 +35,9 @@ fst多少次?
 
 hack多少?
 
-年份丢进url里
-
 localstorage+手动强制刷新 减少请求
+
+# 新版统计
+
+https://cromarmot.github.io/cf-plus
 
