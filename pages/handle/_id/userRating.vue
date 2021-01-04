@@ -36,20 +36,20 @@
 
 <script>
 
-import {mapState, mapGetters} from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import ContestLink from '~/components/contestLink.vue'
 import RatingChangeP from '~/components/ratingChangeP'
 
 export default {
-  components: {RatingChangeP, ContestLink},
+  components: { RatingChangeP, ContestLink },
   computed: {
     ...mapState([
-      'year'
+      'year',
     ]),
     ...mapGetters([
-      'userRatingResult'
-    ])
-  }
+      'userRatingResult',
+    ]),
+  },
 }
 </script>
 <style scoped>

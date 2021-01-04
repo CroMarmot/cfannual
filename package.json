@@ -16,6 +16,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
+    "nuxt-i18n": "^6.16.0",
     "sass-loader": "^8.0.0"
   },
   "devDependencies": {

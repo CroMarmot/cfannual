@@ -10,9 +10,9 @@ export default {
     contestId: {
       type: Number,
       default: 0,
-      require: true
-    }
-  }
+      require: true,
+    },
+  },
 }
 
 </script>

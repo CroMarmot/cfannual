@@ -5,11 +5,11 @@ export const state = () => ({
   // userRating,
   // userStatus
   userRating: {
-    result: []
+    result: [],
   },
   userStatus: {
-    result: []
-  }
+    result: [],
+  },
 })
 
 export const mutations = {
@@ -27,7 +27,7 @@ export const mutations = {
       payload.result = []
     }
     state.userStatus = payload
-  }
+  },
 }
 
 export const actions = {
@@ -43,16 +43,16 @@ export const actions = {
     const data = await this.$axios.$get(`https://codeforces.com/api/user.status?handle=${handle}`)
     commit('setUserStatus', data)
     return data
-  }
+  },
 }
 
 export const getters = {
   userStatusResult: state => year => state.userStatus.result.filter(item =>
     (Number(item.creationTimeSeconds) * 1000) > (new Date(`${Number(year)}-01-01`)).getTime() &&
-    (Number(item.creationTimeSeconds) * 1000) < (new Date(`${Number(year) + 1}-01-01`)).getTime()
+    (Number(item.creationTimeSeconds) * 1000) < (new Date(`${Number(year) + 1}-01-01`)).getTime(),
   ),
   userRatingResult: state => year => state.userRating.result.filter(item =>
     (Number(item.ratingUpdateTimeSeconds) * 1000) > (new Date(`${Number(year)}-01-01`)).getTime() &&
-    (Number(item.ratingUpdateTimeSeconds) * 1000) < (new Date(`${Number(year) + 1}-01-01`)).getTime()
-  )
+    (Number(item.ratingUpdateTimeSeconds) * 1000) < (new Date(`${Number(year) + 1}-01-01`)).getTime(),
+  ),
 }

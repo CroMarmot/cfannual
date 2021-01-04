@@ -12,19 +12,19 @@ export default {
     handle: {
       type: String,
       default: '',
-      require: true
+      require: true,
     },
     score: {
       type: Number,
       default: 1500,
-      require: false
-    }
+      require: false,
+    },
   },
   computed: {
     handleColor() {
       return this.$scoreColor(this.score)
-    }
-  }
+    },
+  },
 }
 
 </script>

@@ -18,15 +18,15 @@
       v-if="readyCnt !== 100"
       class="loading main"
     >
-      Loading...({{ readyCnt }}%)
+      {{ $t('Loading') }}...({{ readyCnt }}%)
     </h2>
     <nuxt-child v-else class="main"/>
     <div v-if="readyCnt === 100" class="footer">
-      <a @click="gotourl('summary')" class="nuxt-link">summary</a>
-      <a @click="gotourl('rating')" class="nuxt-link">rating</a>
-      <a @click="gotourl('verdict')" class="nuxt-link">verdict</a>
-      <a @click="gotourl('tags')" class="nuxt-link">tags</a>
-      <a @click="gotourl('submit')" class="nuxt-link">submit</a>
+      <a @click="gotourl('summary')" class="nuxt-link">{{ $t('id.summary') }}</a>
+      <a @click="gotourl('rating')" class="nuxt-link">{{ $t('id.rating') }}</a>
+      <a @click="gotourl('verdict')" class="nuxt-link">{{ $t('id.verdict') }}</a>
+      <a @click="gotourl('tags')" class="nuxt-link">{{ $t('id.tags') }}</a>
+      <a @click="gotourl('submit')" class="nuxt-link">{{ $t('id.submit') }}</a>
     </div>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       curYear: (new Date()).getFullYear(),
-      year: (new Date()).getFullYear()
+      year: (new Date()).getFullYear(),
     }
   },
   computed: {
@@ -59,7 +59,7 @@ export default {
     userRatingResult() {
       return this.userRating.result.filter(item =>
         (item.ratingUpdateTimeSeconds * 1000) > (new Date(`${this.year}-01-01`)).getTime() &&
-          (item.ratingUpdateTimeSeconds * 1000) < (new Date(`${this.year + 1}-01-01`)).getTime()
+          (item.ratingUpdateTimeSeconds * 1000) < (new Date(`${this.year + 1}-01-01`)).getTime(),
       )
     },
     userColor() {
@@ -77,7 +77,7 @@ export default {
         ret += 50
       }
       return ret
-    }
+    },
   },
   mounted() {
     const handle = this.$route.params.id
@@ -90,11 +90,11 @@ export default {
     ...mapActions(['getUserRating', 'getUserStatus']),
     gotourl(url) {
       // TODO 相对路径
-      this.$router.push({
-        name: `handle-id-stat-${url}`
-      })
-    }
-  }
+      this.$router.push(this.localeRoute({
+        name: `handle-id-stat-${url}`,
+      }))
+    },
+  },
 }
 </script>
 

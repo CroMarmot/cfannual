@@ -16,6 +16,7 @@ module.exports = {
     'space-before-function-paren': 0,
     'object-curly-spacing': 0,
     'vue/html-closing-bracket-spacing': 0,
-    'vue/no-unused-components': 1 // 方便注释调试
+    'vue/no-unused-components': 1, // 方便注释调试
+    'comma-dangle': ["error", "always-multiline"]
   }
 }

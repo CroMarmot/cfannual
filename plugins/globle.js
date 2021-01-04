@@ -33,6 +33,6 @@ Vue.mixin({
         val2 = 0
       }
       return val1 + val2
-    }
-  }
+    },
+  },
 })

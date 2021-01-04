@@ -5,10 +5,10 @@
         Codeforces
       </h2>
       <h2 class="subtitle">
-        年度报告
+        {{ $t('index.AnnualReport') }}
       </h2>
       <form v-on:submit.prevent="go">
-        <input v-model="handle" placeholder="Enter your handle">
+        <input v-model="handle" :placeholder="$t('index.EnterYourHandle')">
       </form>
       <div class="links">
         <a
@@ -16,9 +16,18 @@
           target="_blank"
           class="button--green"
         >
-          Go
+          {{ $t('index.go') }}
         </a>
       </div>
+    </div>
+    <div class="lang-router">
+      <nuxt-link
+        v-for="locale in availableLocales"
+        :key="locale.code"
+        :to="switchLocalePath(locale.code)"
+      >
+        {{ locale.name }}
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -28,23 +37,33 @@
 export default {
   data() {
     return {
-      handle: ''
+      handle: '',
     }
+  },
+  computed: {
+    availableLocales () {
+      return this.$i18n.locales // .filter(i => i.code !== this.$i18n.locale)
+    },
+  },
+  mounted() {
+    window.vueIns = this
   },
   methods: {
     go() {
       if (this.handle.trim() === '') {
         // eslint-disable-next-line no-console
-        alert('please enter your handle')
+        alert(this.$t('index.EnterYourHandle'))
       } else {
-        this.$router.push(`handle/${this.handle.trim()}/stat/summary`)
+        this.$router.push(this.localeRoute({
+          path: `/handle/${this.handle.trim()}/stat/summary`,
+        }))
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
   .container {
     margin: 0 auto;
     min-height: 100vh;
@@ -74,5 +93,18 @@ export default {
 
   .links {
     padding-top: 15px;
+  }
+  .lang-router{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      padding: 3px;
+    }
   }
 </style>

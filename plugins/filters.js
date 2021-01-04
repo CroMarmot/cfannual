@@ -22,7 +22,7 @@ function ratingFmt(val) {
 const filters = {
   date,
   contestUrl,
-  ratingFmt
+  ratingFmt,
 }
 
 export default filters

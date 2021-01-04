@@ -49,11 +49,11 @@ export default {
     ...mapState([
       'userRating',
       'userStatus',
-      'year'
+      'year',
     ]),
     ...mapGetters([
       'userStatusResult',
-      'userRatingResult'
+      'userRatingResult',
     ]),
     rankM() {
       return this.userRatingResult(this.year).reduce((pre, cur) => {
@@ -74,7 +74,7 @@ export default {
         return [_low, _high]
       }, [
         Object.assign({}, userRatingResult[0]),
-        Object.assign({}, userRatingResult[0])
+        Object.assign({}, userRatingResult[0]),
       ])
     },
     ratingChange() {
@@ -121,7 +121,7 @@ export default {
       return {
         submit: this.tagsMost(this.tags.submit),
         ac: this.tagsMost(this.tags.ac),
-        notac: this.tagsMost(this.tags.notac)
+        notac: this.tagsMost(this.tags.notac),
       }
     },
     fst() {
@@ -149,7 +149,7 @@ export default {
         }
       })
       return resultList.filter(item => item.verdict !== 'OK' && item.testset === 'CHALLENGES')
-    }
+    },
   },
   methods: {
     tagsMost(tagsDict) {
@@ -159,8 +159,8 @@ export default {
       const key = Object.keys(tagsDict).reduce((pre, cur) => tagsDict[cur] > tagsDict[pre] ? cur : pre,
         Object.keys(tagsDict)[0])
       return {key, value: tagsDict[key]}
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped>
