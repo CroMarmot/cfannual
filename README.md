@@ -23,7 +23,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 # APIs
 
-`https://codeforces.com/api/user.rating?handle={handle}`
+`https://codeforces.com/api/user.rating?handle=${handle}`
 
 `https://codeforces.com/api/user.status?handle=${handle}`
 
